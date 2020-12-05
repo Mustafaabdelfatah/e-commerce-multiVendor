@@ -17,7 +17,8 @@
         "laravel/ui": "^2.0",
         "needim/noty": "^3.1",
         "realrashid/sweet-alert": "^3.1",
-        "rsmalc/laravel-noty": "^2.4"
+        "rsmalc/laravel-noty": "^2.4",
+        "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

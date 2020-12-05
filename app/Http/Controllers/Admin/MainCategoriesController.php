@@ -8,13 +8,16 @@ use App\Models\MainCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use DB;
+use File;
 use Illuminate\Support\Str;
 
 class MainCategoriesController extends Controller
 {
     public function index()
     {
+        // dd(MainCategory::where('translation_lang','en')->get() );
         $default_lang = get_default_lang();
+        // dd($default_lang);
         $categories = MainCategory::where('translation_lang', $default_lang)
             ->selection()
             ->paginate(PAGINATION_COUNT);
@@ -30,10 +33,10 @@ class MainCategoriesController extends Controller
 
     public function store(MainCategoryRequest $request)
     {
+         
 
         try {
-            //return $request;
-
+        
             // collect request with all data (data in all languages)
             $main_categories = collect($request->category);
 
@@ -145,6 +148,7 @@ class MainCategoriesController extends Controller
 
 
             return redirect()->route('main_categories.index')->withSuccessMessage( 'تم ألتحديث بنجاح' );
+            
         } catch (\Exception $ex) {
 
             return redirect()->route('main_categories.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
@@ -161,19 +165,43 @@ class MainCategoriesController extends Controller
             if (!$maincategory)
                 return redirect()->route('main_categories.index')->with(['error' => 'هذا القسم غير موجود ']);
 
-            // $vendors = $maincategory->vendors();
-            // if (isset($vendors) && $vendors->count() > 0) {
-            //     return redirect()->route('main_categories.index')->with(['error' => 'لأ يمكن حذف هذا القسم  ']);
-            // }
+            $vendors = $maincategory->vendors();
+        
+            if (isset($vendors) && $vendors->count() > 0) {
+                return redirect()->route('main_categories.index')->with(['error' => ' لأ يمكن حذف هذا القسم يوجد متاجر مرتبطه به  ']);
+            }
 
-            // $image = Str::after($maincategory->photo, 'assets/');
-            // $image = base_path('assets/' . $image);
-            // unlink($image); //delete from folder
+            // return $maincategory->photo;
+
+            // $image_path = Str::after($maincategory->photo, 'assets/');
+            // return $image_path;
+
+            // $image_path = base_path($image_path);
+            // // return $image_path;
+
+            // unlink($image_path); //delete from folder
+
+
+            // // File::delete($image_path);
+
+            // // // return $image_path;
+
+            // // if (File::exists($image_path)) {
+            // // }
+
+
+            // // $image = Str::after($maincategory->photo, 'assets/');
+            // // $image = base_path('assets/' . $image);
+            
+            // // return $image;
+            // // unlink($image); //delete from folder
 
             $maincategory->delete();
+
             return redirect()->route('main_categories.index')->withSuccessMessage( 'تم حذف القسم بنجاح' );
 
         } catch (\Exception $ex) {
+            dd($ex);
             return redirect()->route('main_categories.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
     }

@@ -21,30 +21,19 @@ class VendorCreated extends Notification
      */
     public function __construct(Vendor $vendor)
     {
-       $this -> vendor =  $vendor;
+       $this->vendor =  $vendor;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+   
     public function via($notifiable)
     {
         return ['mail'];
     }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+ 
     public function toMail($notifiable)
     {
 
-        $subject = sprintf('%s: لقد تم انشاء حسابكم في موقع الامامي %s!', config('app.name'), 'ahmed');
+        $subject = sprintf('%s: لقد تم انشاء حسابكم في موقع الامامي %s!', config('app.name'), 'mustafa');
         $greeting = sprintf('مرحبا %s!', $notifiable->name);
 
         return (new MailMessage)
@@ -57,16 +46,11 @@ class VendorCreated extends Notification
 
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+    
     public function toArray($notifiable)
     {
         return [
-            //
+            
         ];
     }
 }

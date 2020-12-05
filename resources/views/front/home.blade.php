@@ -1,6 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
+
     <div id="main">
 
         <div id="displayTop" class="displaytopthree">

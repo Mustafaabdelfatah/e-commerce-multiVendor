@@ -53,7 +53,10 @@
  
  
 <script>
-
+ $(document).ready( function () {
+        $('#datatable').DataTable();
+    });
+    
     $('#meridians1').timeDropper({
         meridians: true,
         setCurrentTime: false

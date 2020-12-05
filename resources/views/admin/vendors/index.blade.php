@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'Vendor')
+
 @section('content')
-     
+    
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
                     <h3 class="content-header-title"> الاقسام الرئيسية </h3>
@@ -10,7 +10,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active">    {{ __('messages.vendors') }}
+                                <li class="breadcrumb-item active"> ألمتاجر
                                 </li>
                             </ol>
                         </div>
@@ -24,7 +24,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع المتاجر      </h4>
+                                    <h4 class="card-title">جميع المتاجر </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -42,52 +42,58 @@
 
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table class="table display nowrap table-striped table-bordered ">
-                                            <thead>
-                                                <tr>
-                                                    <th>الاسم</th>
-                                                    <th> اللوجو</th>
-                                                    <th>الهاتف</th>
-                                                    <th>القسم الرئيسي</th>
-                                                    <th> ألحالة </th>
-                                                    <th>الإجراءات</th>
-                                                </tr>
+                                        <table id="datatable" class="table hover order-column display nowrap table-striped table-bordered ">
+                                            <thead class="">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>الاسم</th>
+                                                <th> اللوجو</th>
+                                                <th>الهاتف</th>
+                                                <th>القسم الرئيسي</th>
+                                                <th> ألحالة </th>
+                                                <th>الإجراءات</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
 
                                             @isset($vendors)
-                                                @foreach($vendors as $vendor)
-                                                <tr>
-                                                    <td>{{$vendor->name}}</td>
-                                                    <td><img style="width: 150px; height: 100px;"
-                                                             src="{{$vendor->logo}}"></td>
+                                                @foreach($vendors as $key => $vendor)
+                                                    <tr>
+                                                        <td>{{$key + 1}}</td>
+                                                        <td>{{$vendor->name}}</td>
+                                                        <td><img style="width: 150px; height: 100px;"
+                                                                 src="{{$vendor -> 	logo}}"></td>
 
-                                                    <td>{{$vendor->mobile}}</td>
-                                                    <td> {{$vendor->category->name}}</td>
+                                                        <td>{{$vendor->mobile}}</td>
+                                                        <td> {{$vendor->category->name}}</td>
 
-                                                    <td> {{$vendor->getActive()}}</td>
-                                                    <td>
-                                                        <div class="btn-group" role="group"
-                                                             aria-label="Basic example">
-                                                            <a href="{{route('admin.vendors.edit',$vendor->id)}}"
-                                                               class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                        <td> {{$vendor->getActive()}}</td>
+                                                        <td>
+                                                            <div class="btn-group" role="group"
+                                                                 aria-label="Basic example">
+                                                                <a href="{{route('vendors.edit',$vendor->id)}}"
+                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
+                                                                <form action="{{ route('vendors.destroy',$vendor->id)}}"
+                                                                    method="post" style="display:inline-block">
+                                                                    {{ csrf_field() }}
+                                                                    {{ method_field("delete")}}
+                                                                    <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1 delete">حذف</button>
+                                                                </form>
+    
+    
+                                                                <a href="{{route('vendors.status',$vendor->id)}}"
+                                                                   class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    @if($vendor->active == 0)
+                                                                        تفعيل
+                                                                        @else
+                                                                        الغاء تفعيل
+                                                                    @endif
+                                                                </a>
 
-                                                            <form action="{{ route('vendors.destroy',$vendor->id)}}"
-                                                                method="post" style="display:inline-block">
-                                                                {{ csrf_field() }}
-                                                                {{ method_field("delete")}}
-                                                                <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1 delete">حذف</button>
-                                                            </form>
-
-
-                                                            <a href=""
-                                                               class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">تفعيل</a>
-
-
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
                                             @endisset
 
@@ -104,8 +110,9 @@
                     </div>
                 </section>
             </div>
-       
+      
 @endsection
+ 
 
 @push('js')
 <script>

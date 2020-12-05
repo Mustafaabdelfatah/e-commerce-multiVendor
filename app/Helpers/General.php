@@ -34,15 +34,10 @@ if(!function_exists('get_languages'))
 }
 if (!function_exists('lang')) {
 	function lang() {
-		if (session()->has('lang')) {
-			return session('lang');
-		} else {
-            //dd( setting()->main_lang);
-            //return setting()->main_lang;
-            //return session('en');
+			return  session('lang')?:app()->getLocale();
 		}
-	}
 }
+
 if (!function_exists('direction')) {
 	function direction() {
 		if (session()->has('lang')) {
