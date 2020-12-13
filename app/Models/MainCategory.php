@@ -13,11 +13,11 @@ class MainCategory extends Model
         'translation_lang', 'translation_of', 'name', 'slug', 'photo', 'active', 'created_at', 'updated_at'
     ];
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     MainCategory::observe(MainCategoryObserver::class);
-    // }
+    protected static function boot()
+    {
+        parent::boot();
+        MainCategory::observe(MainCategoryObserver::class);
+    }
 
     public function scopeActive($query)
     {
@@ -52,12 +52,11 @@ class MainCategory extends Model
         return $this->hasMany(self::class, 'translation_of');
     }
 
-
-    // public  function subCategories(){
-    //     return $this -> hasMany(SubCategory::class,'category_id','id');
-    // }
-
-
+   
+ 
+    public  function subCategories(){
+        return $this->hasMany(SubCategory::class,'category_id','id');
+    }
 
     public function vendors(){
 

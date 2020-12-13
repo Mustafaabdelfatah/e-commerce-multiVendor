@@ -37,6 +37,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('changeStatus/{id}','MainCategoriesController@changeStatus')->name('admin.maincategories.status');
         ######################### End  Main Categoris Routes  ########################
 
+
+            ######################### Begin sub Categoris Routes ########################
+            Route::resource('sub_categories', 'SubCategoriesController');
+            Route::get('changeSubStatus/{id}','SubCategoriesController@changeStatus')->name('admin.subcategories.status');
+            ######################### End  sun Categoris Routes  ########################
+    
+
          ######################### Begin Vendors Routes ########################
          Route::resource('vendors', 'VendorsController');
          Route::get('changeVendorStatus/{id}','VendorsController@changeStatus')->name('vendors.status');

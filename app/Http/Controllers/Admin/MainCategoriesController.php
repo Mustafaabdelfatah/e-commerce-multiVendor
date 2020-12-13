@@ -33,8 +33,7 @@ class MainCategoriesController extends Controller
 
     public function store(MainCategoryRequest $request)
     {
-         
-
+        
         try {
         
             // collect request with all data (data in all languages)
@@ -171,31 +170,8 @@ class MainCategoriesController extends Controller
                 return redirect()->route('main_categories.index')->with(['error' => ' لأ يمكن حذف هذا القسم يوجد متاجر مرتبطه به  ']);
             }
 
-            // return $maincategory->photo;
-
-            // $image_path = Str::after($maincategory->photo, 'assets/');
-            // return $image_path;
-
-            // $image_path = base_path($image_path);
-            // // return $image_path;
-
-            // unlink($image_path); //delete from folder
-
-
-            // // File::delete($image_path);
-
-            // // // return $image_path;
-
-            // // if (File::exists($image_path)) {
-            // // }
-
-
-            // // $image = Str::after($maincategory->photo, 'assets/');
-            // // $image = base_path('assets/' . $image);
+            $maincategory->categories()->delete();
             
-            // // return $image;
-            // // unlink($image); //delete from folder
-
             $maincategory->delete();
 
             return redirect()->route('main_categories.index')->withSuccessMessage( 'تم حذف القسم بنجاح' );
@@ -209,14 +185,20 @@ class MainCategoriesController extends Controller
     public function changeStatus($id)
     {
         try {
+
+
             $maincategory = MainCategory::find($id);
+         
+
             if (!$maincategory)
                 return redirect()->route('main_categories.index')->with(['error' => 'هذا القسم غير موجود ']);
 
            $status =  $maincategory->active  == 0 ? 1 : 0;
 
-           $maincategory -> update(['active' =>$status ]);
+           $maincategory->update(['active' =>$status ]);
 
+           
+ 
             return redirect()->route('main_categories.index')->withSuccessMessage( ' تم تغيير الحالة بنجاح ' );
 
         } catch (\Exception $ex) {

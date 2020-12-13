@@ -20,7 +20,13 @@ return [
       'main_categories'=>'الاقسام الرئيسيه',
       'all_main_categories'=>'كل الاقسام  ',
       'add_new_categories'=>'اضافه قسم جديد  ',
+      'sub_categories'=>'الاقسام الفرعيه',
+      'all_sub_categories'=>'كل الاقسام الفرعيه  ',
+      'add_new_sub_categories'=>'اضافه قسم فرعي جديد  ',
       'vendors'=>' المتاجر',
       'all_vendors'=>'كل المتاجر  ',
       'add_new_vendors'=>'اضافه متجر جديد  ',
+      ''=>'',
+      'cat_level'=>'الاقسام الفرعيه',
+      'main_level'=>'الاقسام الرئيسيه'
 ];

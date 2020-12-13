@@ -85,7 +85,7 @@
                                                                     @if($categories && $categories -> count() > 0)
                                                                         @foreach($categories as $category)
                                                                             <option
-                                                                                value="{{$category -> id }}">{{$category -> name}}</option>
+                                                                                value="{{$category -> id }}">{{$category->name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>

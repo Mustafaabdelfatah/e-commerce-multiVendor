@@ -34,7 +34,7 @@
                    <a href=""><i class="la la-home"></i>
                        <span class="menu-title" data-i18n="nav.dash.main">{{ __('messages.main_categories') }} </span>
                        <span class="badge badge badge-info badge-pill float-right mr-2">
-                           {{ App\Models\MainCategory::active()->count() }}
+                           {{ App\Models\MainCategory::active()->DefaultCategory()->count() }}
                        </span>
                    </a>
                    <ul class="menu-content">
@@ -49,6 +49,28 @@
                </li>
 
                 <!-- end main categories -->
+
+                 <!-- start sub categories -->
+
+               <li class="nav-item {{Request::is('admin/sub_categories') ? 'open' : '' }}">
+                <a href=""><i class="la la-home"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{ __('messages.sub_categories') }} </span>
+                    <span class="badge badge badge-info badge-pill float-right mr-2">
+                        {{ App\Models\SubCategory::active()->DefaultCategory()->count() }}
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{Request::is('admin/sub_categories') ? 'active' : '' }}"><a class="menu-item" href="{{route('sub_categories.index')}}"
+                                          data-i18n="nav.dash.ecommerce">   {{ __('messages.all_sub_categories') }} </a>
+                    </li>
+                    <li class="{{Request::is('admin/sub_categories/create') ? 'active' : '' }}"><a class="menu-item" href="{{route('sub_categories.create')}}"
+                        data-i18n="nav.dash.ecommerce">   {{ __('messages.add_new_sub_categories') }} </a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+             <!-- end sub categories -->
                
 
                 <!-- start Vendors -->

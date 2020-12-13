@@ -137,7 +137,7 @@ class VendorsController extends Controller
              $data = $request->except('_token', '_method','id', 'logo', 'password');
 
 
-            if ($request->has('password') && !is_null($request->  password)) {
+            if ($request->has('password') && !is_null($request->password)) {
 
                 $data['password'] = $request->password;
             }
