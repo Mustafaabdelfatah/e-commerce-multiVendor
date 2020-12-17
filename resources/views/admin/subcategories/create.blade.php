@@ -73,7 +73,14 @@
                                             </div>
                                         </div>
     
-                                        <div class="col-md-6">
+                                        <div class="col">
+                                            <label for="inputName" class="control-label">الاقسام الفرعيه</label>
+                                            <select id="parent_id" name="parent_id" class="form-control">
+                                                {{-- <option value="0">قسم فرعي رئيسي</option> --}}
+                                            </select>
+                                        </div>
+
+                                        {{-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="projectinput1">  {{__('messages.cat_level')}} </label>
                                                 <select name="parent_id" class="form-control">
@@ -86,7 +93,7 @@
                                                 <span class="text-danger"> هذا الحقل مطلوب</span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
     
                                     </div>
                                    
@@ -170,6 +177,39 @@
         </section>
         <!-- // Basic form layout section end -->
     </div>
-
-
 @endsection
+
+@push('js')
+<script>
+
+ $(document).ready(function() {
+
+            $('select[name="category_id"]').on('change', function() {
+                var categoryId = $(this).val();
+                if (categoryId) {
+                    $.ajax({
+                        url: "{{ URL::to('admin/sub_cat') }}/" + categoryId,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data)
+                            $('select[name="parent_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="parent_id"]').append('<option value=" '+
+                                    key + '">' + value + '</option>');
+                            });
+                        },
+                    });
+
+                } else {
+                    console.log('AJAX load did not work');
+                }
+            });
+
+            
+
+        });
+
+ 
+</script>
+@endpush

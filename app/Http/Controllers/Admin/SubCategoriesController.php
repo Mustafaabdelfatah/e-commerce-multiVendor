@@ -234,4 +234,9 @@ class SubCategoriesController extends Controller
             return redirect()->route('main_categories.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
     }
+    public function getsubcat($id)
+    {
+        $subcat = DB::table("sub_categories")->where("category_id", $id)->pluck("name", "id");
+        return json_encode($subcat);
+    }
 }

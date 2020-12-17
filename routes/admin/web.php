@@ -1,17 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+ 
 
 
 define('PAGINATION_COUNT',10);
@@ -41,6 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
             ######################### Begin sub Categoris Routes ########################
             Route::resource('sub_categories', 'SubCategoriesController');
             Route::get('changeSubStatus/{id}','SubCategoriesController@changeStatus')->name('admin.subcategories.status');
+            Route::get('/sub_cat/{id}', 'SubCategoriesController@getsubcat');
             ######################### End  sun Categoris Routes  ########################
     
 
